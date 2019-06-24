@@ -56,7 +56,7 @@ def get_vcap_config():
 	global log_level
 	global skip_ssl_validation
 	vcap_config = json.loads(os.getenv('VCAPX_CONFIG', '{}'))
-	log_level = vcap_config.get('loglevel', 1)
+	log_level = vcap_config.get('loglevel', 2)
 	skip_ssl_validation = vcap_config.get('skip_ssl_validation', False)
 
 # Get Application Info
@@ -183,9 +183,6 @@ def register_service(service, appinfo):
 	if log_level > 1:
 		print "POST", uri
 		print json.dumps(data, indent=4)
-		
-	print(uri)
-	print(data)
 	
 	req = urllib2.Request(uri)
 	req.add_header('Authorization', service['access_token'])
