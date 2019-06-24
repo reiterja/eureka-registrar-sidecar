@@ -183,6 +183,10 @@ def register_service(service, appinfo):
 	if log_level > 1:
 		print "POST", uri
 		print json.dumps(data, indent=4)
+		
+	print(uri)
+	print(data)
+	
 	req = urllib2.Request(uri)
 	req.add_header('Authorization', service['access_token'])
 	req.add_header('Content-Type', 'application/json')
