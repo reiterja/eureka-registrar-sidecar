@@ -56,7 +56,7 @@ def get_vcap_config():
 	global log_level
 	global skip_ssl_validation
 	vcap_config = json.loads(os.getenv('VCAPX_CONFIG', '{}'))
-	log_level = vcap_config.get('loglevel', 2)
+	log_level = vcap_config.get('loglevel', 1)
 	skip_ssl_validation = vcap_config.get('skip_ssl_validation', False)
 
 # Get Application Info
@@ -67,11 +67,7 @@ def get_vcap_config():
 def get_application_info():
 	appinfo = {}
 	vcap_application = json.loads(os.getenv('VCAP_APPLICATION', '{}'))
-	appinfo['name'] = vcap_application.get('application_name')
-	if appinfo['name'] == None:
-		print >> sys.stderr, "VCAP_APPLICATION must specify application_name"
-		sys.exit(1)
-	appinfo['name'] = appinfo['name'].upper() # case mismatch bug
+	appinfo['name'] = vcap_application.get('application_name').upper()
 	appinfo['instance'] = os.getenv('CF_INSTANCE_INDEX')
 	appinfo['hostname'] = vcap_application.get('application_uris')[0]
 	appinfo['ipaddress'] = os.getenv('CF_INSTANCE_IP')
