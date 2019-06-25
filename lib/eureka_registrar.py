@@ -71,6 +71,7 @@ def get_application_info():
 	if appinfo['name'] == None:
 		print >> sys.stderr, "VCAP_APPLICATION must specify application_name"
 		sys.exit(1)
+	appinfo['name'] = appinfo['name'].upper() # case mismatch bug
 	appinfo['instance'] = os.getenv('CF_INSTANCE_INDEX')
 	appinfo['hostname'] = vcap_application.get('application_uris')[0]
 	appinfo['ipaddress'] = os.getenv('CF_INSTANCE_IP')
@@ -115,7 +116,7 @@ def start_registrar(service, appinfo):
 		print >> sys.stderr, "services of type service-registry must specify a uri"
 		return
 	base_uri = uri + "/eureka"
-	application_uri = base_uri + "/apps/" + appinfo['name'].upper()
+	application_uri = base_uri + "/apps/" + appinfo['name']
 	instance_uri = application_uri + "/" + appinfo['instance']
 	service_info = {
 		'access_token': access_token,
