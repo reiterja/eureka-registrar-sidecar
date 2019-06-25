@@ -115,7 +115,7 @@ def start_registrar(service, appinfo):
 		print >> sys.stderr, "services of type service-registry must specify a uri"
 		return
 	base_uri = uri + "/eureka"
-	application_uri = base_uri + "/apps/" + appinfo['name']
+	application_uri = base_uri + "/apps/" + appinfo['name'].upper()
 	instance_uri = application_uri + "/" + appinfo['instance']
 	service_info = {
 		'access_token': access_token,
